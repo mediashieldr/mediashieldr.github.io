@@ -43,17 +43,25 @@
 
                 const required = ['openid.claimed_id'];
                 const url = getUrl();
+
+                console.log(url);
+
                 const port = url.searchParams.get('nv_port');
+
+
+                console.log(port);
+
                 if (port) {
                     const params = getParams(url, required);
 
                     if (Object.entries(params).length) {
                         const query = buildQuery(params);
-			            window.location.replace(`nvidia://connect_redirect_steam:/${query}`);
-            
+			            //window.location.replace(`nvidia://connect_redirect_steam:/${query}`);   
+                        window.location.replace(`https://www.google.com`);                
                     }
 	        }
             })();
         </script>
     </head>
 </html>
+
