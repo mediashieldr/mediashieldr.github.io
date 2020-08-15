@@ -1,5 +1,59 @@
-<html>
-This file is only a test file, nothing else.
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>NVIDIA</title>
+        <script>
+            (function() {
+                'use strict';
 
-<a href="http://www.google.com">google.com</a>
+                function buildQuery(params) {
+                    if (Object.keys(params).length) {
+                        const query = [];
+                        Object.keys(params).forEach(key => {
+                            if (params[key]) {
+                                query.push(`${key}=${params[key]}`);
+                            }
+                        });
+                        return `?${query.join('&')}`;
+                    }
+                    return '';
+                }
+
+                function getUrl() {
+                    let url = window.location.href;
+                    // Fix odd query param formatting: "https://domain.com/path#param=value"
+                    if (!window.location.search && window.location.hash) {
+                        return new URL(
+                            window.location.origin + window.location.pathname + '?' + window.location.hash.substring(1)
+                        );
+                    }
+                    return new URL(url);
+                }
+
+                function getParams(url, paramList) {
+                    return paramList.reduce((acc, param) => {
+                        const val = url.searchParams.get(param);
+                        if (val) {
+                            acc[param] = val;
+                        }
+                        return acc;
+                    }, {});
+                }
+
+                const required = ['openid.claimed_id'];
+                const url = getUrl();
+                const port = url.searchParams.get('nv_port');
+                if (port) {
+                    const params = getParams(url, required);
+
+                    if (Object.entries(params).length) {
+                        const query = buildQuery(params);
+			            window.location.replace(`nvidia://connect_redirect_steam:/${query}`);
+            
+                    }
+	        }
+            })();
+        </script>
+    </head>
 </html>
