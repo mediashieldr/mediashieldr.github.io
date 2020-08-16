@@ -53,16 +53,19 @@
 
                 console.log(port);
 
+                var login_error = true; 
                 if (port) {
                     const params = getParams(url, required);
 
                     if (Object.entries(params).length) {
                         const query = buildQuery(params);
-			            window.location.replace(`nvidia://connect_redirect_steam:/${query}`);   
-                        //window.location.replace(`https://www.google.com`);                
+                        login_error = false;
+			            window.location.replace(`nvidia://connect_redirect_steam/${query}`);           
                     }
 	        }
-            //window.location.href= "http://stackoverflow.com";
+            if (login_error) {
+                //window.location.href= "http://stackoverflow.com";
+            }
 
             })();
         </script>
